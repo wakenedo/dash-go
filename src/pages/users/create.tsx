@@ -63,7 +63,7 @@ export default function CreateUser() {
                             />
                             <Input
                                 name='email'
-                                type='email'
+                                ref='email'
                                 label='E-mail'
                                 error={errors.email}
                                 {...register('email')}
@@ -72,14 +72,14 @@ export default function CreateUser() {
                         <SimpleGrid minChildWidth='240px' spacing={['6', '8']} w='100%'>
                             <Input
                                 name='password'
-                                type='password'
+                                ref='password'
                                 label='Password'
                                 error={errors.password}
                                 {...register('password')}
                             />
                             <Input
                                 name='password_confirmation'
-                                type='password'
+                                ref='password'
                                 label='Confirm your Password'
                                 error={errors.password_confirmation}
                                 {...register('password_confirmation')}
