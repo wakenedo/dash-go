@@ -11,11 +11,12 @@ import { useQuery } from "react-query";
 
 export default function UserList() {
     const { data, isLoading, error } = useQuery('users', async () => {
-        const response = await fetch('api/users')
-        const data = response
-
-        console.log(data)
-        return data
+        const response = await fetch('api/users');
+        const users = response.json();
+        
+        
+        
+        return users
     })
 
 
@@ -69,43 +70,48 @@ export default function UserList() {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    <Tr>
-                                        <Td px={['4', '4', '6']}>
-                                            <Checkbox colorScheme='pink' />
-                                        </Td>
-                                        <Td>
-                                            <Box>
-                                                <Text fontWeight='bold'>Wakenedo</Text>
-                                                <Text fontSize='small' color='gray.300'>a_nuner@outlook.com</Text>
-                                            </Box>
-                                        </Td>
-                                        {isWideVersion ? <Td>april 04 2022</Td> : ' '}
+                                    {data.users.map(user => {
+                                        
+                                        return (
+                                            <Tr key={user.id}>
+                                                <Td px={['4', '4', '6']}>
+                                                    <Checkbox colorScheme='pink' />
+                                                </Td>
+                                                <Td>
+                                                    <Box>
+                                                        <Text fontWeight='bold'>{user.name}</Text>
+                                                        <Text fontSize='small' color='gray.300'>{user.email}</Text>
+                                                    </Box>
+                                                </Td>
+                                                {isWideVersion ? <Td>{user.createdAt}</Td> : ' '}
 
-                                        {isWideVersion ?
-                                            <Td>
-                                                <Button
-                                                    as='a'
-                                                    size='sm'
-                                                    fontSize='sm'
-                                                    colorScheme='purple'
-                                                    leftIcon={<Icon as={RiPencilLine} fontSize='16' />}
-                                                >
-                                                    Edit
-                                                </Button>
-                                            </Td>
-                                            :
-                                            <Td>
-                                                <Button
-                                                    as='a'
-                                                    size='sm'
-                                                    fontSize='sm'
-                                                    colorScheme='purple'
-                                                >
-                                                    <Icon as={RiPencilLine} fontSize='16' />
-                                                </Button>
-                                            </Td>
-                                        }
-                                    </Tr>
+                                                {isWideVersion ?
+                                                    <Td>
+                                                        <Button
+                                                            as='a'
+                                                            size='sm'
+                                                            fontSize='sm'
+                                                            colorScheme='purple'
+                                                            leftIcon={<Icon as={RiPencilLine} fontSize='16' />}
+                                                        >
+                                                            Edit
+                                                        </Button>
+                                                    </Td>
+                                                    :
+                                                    <Td>
+                                                        <Button
+                                                            as='a'
+                                                            size='sm'
+                                                            fontSize='sm'
+                                                            colorScheme='purple'
+                                                        >
+                                                            <Icon as={RiPencilLine} fontSize='16' />
+                                                        </Button>
+                                                    </Td>
+                                                }
+                                            </Tr>
+                                        )
+                                    })}
                                 </Tbody>
                             </Table>
                             <Pagination />
