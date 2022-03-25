@@ -16,18 +16,19 @@ export function makeServer() {
         factories: {
             user: Factory.extend({
                 name(index: number) {
-                    return `Users ${index + 1}`
+                    return `users ${index + 1}`
                 },
                 email() {
                     return faker.internet.email().toLowerCase()
                 },
                 createdAt() {
-                    return faker.date.recent(10, '')
+                    return faker.date.recent(10)
                 },
             })
         },
 
         seeds(server) {
+            
             server.createList('user', 200)
         },
 
@@ -43,7 +44,7 @@ export function makeServer() {
         }
     })
 
-    console.log(server)
+   
     return server;
 
 }

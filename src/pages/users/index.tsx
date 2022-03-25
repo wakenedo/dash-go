@@ -5,19 +5,20 @@ import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 import { useQuery } from "react-query";
-import { useEffect } from "react";
+
 
 
 
 export default function UserList() {
     const query = useQuery('users', async () => {
-        const response = await fetch('http://localhost:3000/api/users')
-        const data = await response.json()
+        const response = await fetch('api/users')
+        const data = response
 
+        console.log(data)
         return data
     })
-    
-    console.log(query)
+
+    console.log('query log: ', query)
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -69,7 +70,7 @@ export default function UserList() {
                                         <Text fontSize='small' color='gray.300'>a_nuner@outlook.com</Text>
                                     </Box>
                                 </Td>
-                                {isWideVersion ? <Td>april 04 2022</Td> : ''}
+                                {isWideVersion ? <Td>april 04 2022</Td> : ' '}
 
                                 {isWideVersion ?
                                     <Td>
@@ -95,11 +96,9 @@ export default function UserList() {
                                         </Button>
                                     </Td>
                                 }
-
                             </Tr>
                         </Tbody>
                     </Table>
-
                     <Pagination />
                 </Box>
             </Flex>
