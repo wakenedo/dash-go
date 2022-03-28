@@ -9,16 +9,28 @@ import { useQuery } from "react-query";
 
 
 
+
 export default function UserList() {
     const { data, isLoading, error } = useQuery('users', async () => {
         const response = await fetch('api/users');
-        const users = response.json();
-        
-        
-        
+        const data = await response.json();
+
+
+        const users = data.users.map((user) => {
+            return {
+                user: user.id,
+                name: user.name,
+                email: user.email,
+                createdAt: new Date(user.createdAt).toLocaleDateString('en-US', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                })
+            }
+        })
+
         return users
     })
-
 
     const isWideVersion = useBreakpointValue({
         base: false,
@@ -70,8 +82,8 @@ export default function UserList() {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    {data.users.map(user => {
-                                        
+                                    {data.map(user => {
+
                                         return (
                                             <Tr key={user.id}>
                                                 <Td px={['4', '4', '6']}>
