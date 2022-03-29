@@ -15,7 +15,7 @@ export function PaginationItem({
             <Button
                 size='sm'
                 fontSize='xs'
-                width='14'
+                width='4'
                 colorScheme='pink'
                 disabled
                 _disabled={{
