@@ -5,6 +5,7 @@ export type User = {
     name: string,
     email: string,
     created_at: string,
+    id: string
 }
 
 export function makeServer() {
@@ -15,8 +16,8 @@ export function makeServer() {
 
         factories: {
             user: Factory.extend({
-                name(index: number) {
-                    return `users ${index + 1}`
+                name() {
+                    return faker.internet.userName();
                 },
                 email() {
                     return faker.internet.email().toLowerCase()
@@ -53,6 +54,7 @@ export function makeServer() {
                     {users}
                 )
             });
+            this.get('/users/:id');
             this.post('/users');
 
             this.namespace = '';
