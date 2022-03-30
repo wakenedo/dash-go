@@ -1,8 +1,8 @@
-import { useQuery } from 'react-query'
+import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query'
 import { api } from '../api';
 
 //typing data 
-type User = {
+export type User = {
     id: string;
     name: string;
     email: string;
@@ -43,8 +43,9 @@ export async function getUsers(page: number): Promise<GetUserResponse> {
 // or else data would still be receiving a type of <any> which is not very good,
 // The way its implemented JQuery will understand the component type because of the 
 // type we passed to getUsers. 
-export function useUsers(page: number) {
+export function useUsers(page: number, options?: UseQueryOptions) {
     return useQuery(['users', page], () => getUsers(page), {
-        staleTime: 1000 * 60 * 10 // 10 minutes
-    })
+        staleTime: 1000 * 60 * 10, // 10 minutes
+        ...options,
+    }) as UseQueryResult<GetUserResponse, unknown>
 }
